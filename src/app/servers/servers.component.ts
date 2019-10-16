@@ -17,4 +17,12 @@ export class ServersComponent implements OnInit {
 
   @Input() servers = [];
 
+  onChangeFirst() {
+    this.servers[0].name = 'Changed!';
+  }
+
+  onDestroyFirst() {
+    this.servers.splice(0, 1);
+  }
+
 }

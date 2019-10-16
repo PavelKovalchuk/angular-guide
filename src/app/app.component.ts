@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   servers = [
     {serverId: 10, name: "First", status: "online", content: "content 1111"},
-    {serverId: 12, name: "Second", status: "offline", content: "content 2222"}
+    // {serverId: 12, name: "Second", status: "offline", content: "content 2222"}
   ];
 
   onServerAdded(serverData: {name: string, status: string, content: string}) {

@@ -1,5 +1,7 @@
 <div [ngStyle]="{'backgroundColor': getColor()}" [ngClass]="{'online': element.status === 'online'}"
-  class="panel-heading">
+  class="panel-heading"
+  #heading
+>
   {{ element.name }}
 </div>
 <div class="panel-body">

@@ -1,8 +1,13 @@
+<button class="btn btn-primary" (click)="onChangeFirst()">Change first Element</button>
+<button class="btn btn-danger" (click)="onDestroyFirst()">Destroy first Component</button>
 <app-server
  *ngFor="let server of servers; let i = index"
  [server-data]="server"
+ [name]="server.name"
  >
- {{"Server"}} with ID {{server.serverId}}
- and has content: <strong>{{server.content}} </strong>
- is {{server.status}}
+<p #contentParagraph >
+  {{"Server"}} with ID {{server.serverId}}
+  and has content: <strong>{{server.content}} </strong>
+  is {{server.status}}
+</p>
 </app-server>
