@@ -1,6 +1,7 @@
-<p
-  [ngStyle]="{'backgroundColor': getColor()}"
-  [ngClass]="{'online': serverStatus === 'online'}"
->
-  {{"Server"}} with ID {{serverId}} is {{getServerStatus()}}
-</p>
+<div [ngStyle]="{'backgroundColor': getColor()}" [ngClass]="{'online': element.status === 'online'}"
+  class="panel-heading">
+  {{ element.name }}
+</div>
+<div class="panel-body">
+  {{"Server"}} with ID {{element.serverId}} is {{element.status}}
+</div>

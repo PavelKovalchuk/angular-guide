@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: "app-server",
@@ -10,18 +10,18 @@ import { Component } from '@angular/core';
   `],
 })
 export class ServerComponent {
-  serverId: number = 10;
-  serverStatus: string = "offline";
-
   constructor() {
-    this.serverStatus = Math.random() > 0.5 ? "online" : "offline";
+
   }
 
+  // using alias, or without it we can use element attribute [element]="server"
+  @Input("server-data") element: {serverId: number, name: string, status: string};
+
   getServerStatus() {
-    return this.serverStatus;
+    return this.element.status;
   }
 
   getColor() {
-    return this.serverStatus === "online" ? "green" : "red";
+    return this.element.status === "online" ? "green" : "red";
   }
 }
