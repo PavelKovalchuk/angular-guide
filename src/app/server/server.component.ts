@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: "app-server",
@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
       color: white;
     }
   `],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class ServerComponent {
   constructor() {
@@ -15,7 +16,7 @@ export class ServerComponent {
   }
 
   // using alias, or without it we can use element attribute [element]="server"
-  @Input("server-data") element: {serverId: number, name: string, status: string};
+  @Input("server-data") element: {serverId: number, name: string, status: string, content: string};
 
   getServerStatus() {
     return this.element.status;

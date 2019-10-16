@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 
 
 @Component({
@@ -15,22 +15,19 @@ export class AppCockpitComponent implements OnInit {
   }
 
   allowNewServer = false;
-  serverCreationStatus = "No server was created";
-  serverName = "";
   serverCreated = false;
-  @Output() serverCreatedEvent = new EventEmitter<{name: string, status: string}>()
+  @Output() serverCreatedEvent = new EventEmitter<{name: string, status: string, content: string}>()
+  @ViewChild("serverContentInput", {static: true}) serverContentInput: ElementRef;
 
   ngOnInit() {
   }
 
-  onCreateServer() {
-    this.serverCreationStatus = "Server was created! The name is " + this.serverName;
-    this.serverCreated = true;
-    this.serverCreatedEvent.emit({name: this.serverName, status: Math.random() > 0.5 ? "online" : "offline"});
-  }
-
-  onUpdateServerName(event: Event) {
-    this.serverName = (<HTMLInputElement>event.target).value;
+  onCreateServer(serverNameInput: HTMLInputElement) {
+    this.serverCreatedEvent.emit({
+      name: serverNameInput.value,
+      status: Math.random() > 0.5 ? "online" : "offline",
+      content: this.serverContentInput.nativeElement.value,
+    });
   }
 
 }
