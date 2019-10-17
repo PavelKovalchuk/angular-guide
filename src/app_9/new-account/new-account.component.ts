@@ -1,5 +1,5 @@
-import { AccountsService } from './../accounts.service';
-import { LoggingService } from './../logging.service';
+import { AccountsService } from '../accounts.service';
+import { LoggingService } from '../logging.service';
 import { Component} from '@angular/core';
 
 @Component({

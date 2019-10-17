@@ -1,4 +1,4 @@
-import { LoggingService } from "./../logging.service";
+import { LoggingService } from "../logging.service";
 import { Component, Input } from "@angular/core";
 import { AccountsService } from "../accounts.service";
 
