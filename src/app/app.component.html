@@ -1,22 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <button
-        class="btn btn-primary"
-        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
       <br><br>
       <ul class="list-group">
         <div *ngIf="onlyOdd">
-            <li
-              class="list-group-item"
-              [ngClass]="{'odd': number % 2 !== 0}"
-              [ngStyle]="{backgroundColor: number % 2 !== 0 ? 'yellow' : 'transparent'}"
-              *ngFor="let number of oddNumbers"
-            >
+          <li class="list-group-item" [ngClass]="{'odd': number % 2 !== 0}"
+            [ngStyle]="{backgroundColor: number % 2 !== 0 ? 'yellow' : 'transparent'}"
+            *ngFor="let number of oddNumbers">
             {{number}}
           </li>
         </div>
-        <div *ngIf="!onlyOdd">
+        <!-- <div *ngIf="!onlyOdd">
             <li
               class="list-group-item"
               [ngClass]="{'odd': number % 2 !== 0}"
@@ -24,12 +19,29 @@
             >
             {{number}}
           </li>
+        </div> -->
+        <div *appUnless="onlyOdd">
+          <li class="list-group-item" [ngClass]="{'odd': number % 2 !== 0}" *ngFor="let number of evenNumbers">
+            {{number}}
+          </li>
         </div>
-
       </ul>
 
-      <p appBasicHighlight >Styled with directive</p>
-      <p [appBetterHighlight] = "'green'" defaultColor = "coral" >Styled with directive 2</p>
+      <!--  <ng-template [ngIf]="!onlyOdd">
+        <div>
+          <li
+            class="list-group-item"
+            [ngClass]="{'odd': number % 2 !== 0}"
+            *ngFor="let number of evenNumbers"
+          >
+            {{number}}
+          </li>
+        </div>
+      </ng-template> -->
+
+
+      <p appBasicHighlight>Styled with directive</p>
+      <p [appBetterHighlight]="'green'" defaultColor="coral">Styled with directive 2</p>
 
       <ng-template [ngIf]="onlyOdd">
         <p>Only odd</p>
