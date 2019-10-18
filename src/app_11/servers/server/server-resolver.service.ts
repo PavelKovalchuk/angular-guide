@@ -1,4 +1,4 @@
-import { ServersService } from "../servers.service
+import { ServersService } from "../servers.service"
 import {
   Resolve,
   ActivatedRouteSnapshot,
