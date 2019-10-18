@@ -1,3 +1,4 @@
+import { ErrorPageComponent } from './error-page/error-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
 
@@ -44,9 +45,16 @@ const appRoutes: Routes = [
       }
     ]
   },
+  // {
+  //   path: "not-found",
+  //   component: PageNotFoundComponent,
+  // },
   {
     path: "not-found",
-    component: PageNotFoundComponent,
+    component: ErrorPageComponent,
+    data: {
+      message: "Some error occured!"
+    },
   },
   {
     path: "**",
