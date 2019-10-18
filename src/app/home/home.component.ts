@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 
 import { interval, Subscription, Observable } from "rxjs";
+import { map, filter } from "rxjs/operators";
 
 @Component({
   selector: "app-home",
@@ -31,17 +32,35 @@ export class HomeComponent implements OnInit, OnDestroy {
       }, 1000);
     });
 
-    this.firstObsSub = customObservable.subscribe(
-      data => {
-        console.log("data", data);
-      },
-      error => {
-        console.log("customObservable error: ", error.message);
-      },
-      () => {
-        console.log("customObservable complete !!!");
-      }
-    );
+    // Operators
+    /*  customObservable.pipe(map((data: number) => {
+      console.log("pipe data", data);
+      return "Round: " + (data + 1);
+    })); */
+
+    this.firstObsSub = customObservable
+      .pipe(
+        filter((data: number) => {
+          if (data % 2 === 0) {
+            return true;
+          }
+        }),
+        map((data: number) => {
+          // console.log("pipe map data", data);
+          return "Round: " + (data + 1);
+        })
+      )
+      .subscribe(
+        data => {
+          console.log("data", data);
+        },
+        error => {
+          console.log("customObservable error: ", error.message);
+        },
+        () => {
+          console.log("customObservable complete !!!");
+        }
+      );
   }
 
   ngOnDestroy(): void {
