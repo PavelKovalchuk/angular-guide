@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { map, catchError } from "rxjs/operators";
+import { HttpClient, HttpHeaders, HttpParams, HttpEventType } from "@angular/common/http";
+import { map, catchError, tap } from "rxjs/operators";
 import { Subject, throwError } from "rxjs";
 
 import { Post } from "./post.model";
@@ -16,7 +16,10 @@ export class PostsService {
     this.http
       .post<{ name: string }>(
         "https://angular-guide-1cc35.firebaseio.com/posts.json",
-        postData
+        postData,
+        {
+          observe: "response"
+        }
       )
       .subscribe(
         responseData => {
@@ -29,9 +32,19 @@ export class PostsService {
   }
 
   fetchPosts() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append("print", "pretty");
+    searchParams = searchParams.append("page", "1");
+
     return this.http
       .get<{ [key: string]: Post }>(
-        "https://angular-guide-1cc35.firebaseio.com/posts.json"
+        "https://angular-guide-1cc35.firebaseio.com/posts.json",
+        {
+          headers: new HttpHeaders({
+            "Custom-Header": "hello"
+          }),
+          params: searchParams
+        }
       )
       .pipe(
         map(responseData => {
@@ -51,8 +64,19 @@ export class PostsService {
   }
 
   deletePosts() {
-    return this.http.delete(
-      "https://angular-guide-1cc35.firebaseio.com/posts.json"
-    );
+    return this.http
+      .delete("https://angular-guide-1cc35.firebaseio.com/posts.json", {
+        observe: "events",
+        responseType: "json",
+      })
+      .pipe(tap(event => {
+        console.log("event", event);
+        if (event.type === HttpEventType.Sent) {
+          // ...
+        }
+        if (event.type === HttpEventType.Response) {
+          console.log(event.body);
+        }
+      }));
   }
 }
