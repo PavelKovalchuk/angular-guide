@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-
         <div formGroupName="userData">
           <div class="form-group">
             <label for="username">Username</label>
@@ -19,7 +18,18 @@
                 signupForm.get('userData.username').touched
               "
             >
-              Enter a valid name
+              <span
+                *ngIf="
+                  signupForm.get('userData.username').errors['nameIsForbidden']
+                "
+              >
+                This name is invalid!
+              </span>
+              <span
+                *ngIf="signupForm.get('userData.username').errors['required']"
+              >
+                This field is required
+              </span>
             </span>
           </div>
           <div class="form-group">
@@ -61,8 +71,14 @@
 
         <div formArrayName="hobbies">
           <h4>Hobbies</h4>
-          <div class="form-group" *ngFor="let item of signupForm.get('hobbies').controls; let i = index;">
-            <input type="text" class="form-control" [formControlName]="i">
+          <div
+            class="form-group"
+            *ngFor="
+              let item of signupForm.get('hobbies').controls;
+              let i = index
+            "
+          >
+            <input type="text" class="form-control" [formControlName]="i" />
           </div>
           <button class="btn btn-default" type="button" (click)="onAddHobby()">
             Add hobby
